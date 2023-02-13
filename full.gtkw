@@ -1,0 +1,227 @@
+[*]
+[*] GTKWave Analyzer v3.3.111 (w)1999-2020 BSI
+[*] Sat Jun  4 01:52:32 2022
+[*]
+[dumpfile] "/home/ematthew/research/taiga-project/logs/sim-trace/verilator_trace.vcd"
+[dumpfile_mtime] "Fri Jun  3 18:18:16 2022"
+[dumpfile_size] 1141315
+[savefile] "/home/ematthew/research/taiga-project/logs/sim-trace/full.gtkw"
+[timestart] 495
+[size] 1920 1001
+[pos] -1 -1
+*-4.670145 605 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.cva5_sim.
+[treeopen] TOP.cva5_sim.cpu.
+[treeopen] TOP.cva5_sim.cpu.decode_and_issue_block.
+[treeopen] TOP.cva5_sim.cpu.fetch_block.
+[treeopen] TOP.cva5_sim.cpu.fetch_block.gen_fetch_icache.
+[treeopen] TOP.cva5_sim.cpu.fetch_block.gen_fetch_icache.i_cache.
+[treeopen] TOP.cva5_sim.cpu.gc_unit_block.gc.
+[treeopen] TOP.cva5_sim.cpu.load_store_unit_block.
+[treeopen] TOP.cva5_sim.cpu.load_store_unit_block.attributes_fifo.
+[treeopen] TOP.cva5_sim.cpu.load_store_unit_block.attributes_fifo.gen_width_3_plus.
+[treeopen] TOP.cva5_sim.cpu.load_store_unit_block.gen_ls_dcache.data_cache.
+[treeopen] TOP.cva5_sim.cpu.load_store_unit_block.lsq_block.sq.
+[treeopen] TOP.cva5_sim.cpu.renamer_block.free_list_fifo.
+[sst_width] 349
+[signals_width] 581
+[sst_expanded] 1
+[sst_vpaned_height] 427
+@28
+TOP.cva5_sim.cpu.decode_and_issue_block.clk
+TOP.cva5_sim.rst
+@200
+-
+-Post Reset Init
+@24
+TOP.cva5_sim.cpu.renamer_block.clear_index[5:0]
+@28
+TOP.cva5_sim.cpu.renamer_block.free_list_fifo.fifo.push
+@24
+TOP.cva5_sim.cpu.renamer_block.free_list_fifo.fifo.data_in[5:0]
+@28
+TOP.cva5_sim.cpu.renamer_block.free_list_fifo.inflight_count[5:0]
+TOP.cva5_sim.cpu.renamer_block.free_list_fifo.fifo.pop
+@200
+-
+-Global Control
+@28
+TOP.cva5_sim.cpu.fetch_block.early_branch_flush
+@22
+TOP.cva5_sim.cpu.gc_unit_block.state[31:0]
+@28
+TOP.cva5_sim.cpu.gc_unit_block.interrupt_pending
+TOP.cva5_sim.cpu.gc_unit_block.gc.exception_pending
+TOP.cva5_sim.cpu.load_store_unit_block.exception.valid
+TOP.cva5_sim.cpu.load_store_unit_block.unaligned_addr
+TOP.cva5_sim.cpu.load_store_unit_block.issue.new_request
+TOP.cva5_sim.cpu.load_store_unit_block.ls_inputs.load
+TOP.cva5_sim.cpu.decode_and_issue_block.illegal_instruction_pattern_r
+TOP.cva5_sim.cpu.gc_unit_block.gc.exception.valid
+@22
+TOP.cva5_sim.cpu.gc_unit_block.gc.exception.tval[31:0]
+@28
+TOP.cva5_sim.cpu.gc_unit_block.gc_pc_override
+@22
+TOP.cva5_sim.cpu.gc_unit_block.gc_pc[31:0]
+@200
+-
+-ID Management
+@28
+TOP.cva5_sim.cpu.id_block.pc_id_assigned
+TOP.cva5_sim.cpu.id_block.fetch_complete
+TOP.cva5_sim.cpu.id_block.retire.count[1:0]
+TOP.cva5_sim.cpu.decode_and_issue_block.pc_id_available
+TOP.cva5_sim.cpu.renamer_block.rollback
+@200
+-
+-Fetch
+-
+-ICache
+@28
+TOP.cva5_sim.cpu.fetch_block.gen_fetch_icache.i_cache.fetch_sub.new_request
+TOP.cva5_sim.cpu.fetch_block.gen_fetch_icache.i_cache.fetch_sub.ready
+@22
+TOP.cva5_sim.cpu.fetch_block.gen_fetch_icache.i_cache.second_cycle_addr[31:0]
+@28
+TOP.cva5_sim.cpu.fetch_block.gen_fetch_icache.i_cache.tag_hit
+TOP.cva5_sim.cpu.fetch_block.gen_fetch_icache.i_cache.tag_update
+TOP.cva5_sim.cpu.fetch_block.gen_fetch_icache.i_cache.linefill_in_progress
+TOP.cva5_sim.cpu.fetch_block.gen_fetch_icache.i_cache.fetch_sub.data_valid
+@24
+TOP.cva5_sim.cpu.fetch_block.gen_fetch_icache.i_cache.output_sel[1:0]
+@200
+-    L1 Arbiter
+@28
+TOP.cva5_sim.cpu.fetch_block.gen_fetch_icache.i_cache.l1_response.data_valid
+@200
+-
+-Renamer
+@28
+TOP.cva5_sim.cpu.renamer_block.free_list.full
+@22
+TOP.cva5_sim.cpu.renamer_block.free_list_fifo.inflight_count[5:0]
+@28
+TOP.cva5_sim.cpu.renamer_block.rename_valid
+TOP.cva5_sim.cpu.renamer_block.retire.valid
+TOP.cva5_sim.cpu.renamer_block.rollback
+TOP.cva5_sim.cpu.renamer_block.gc.writeback_supress
+TOP.cva5_sim.cpu.renamer_block.free_list_fifo.fifo.push
+TOP.cva5_sim.cpu.renamer_block.decode.uses_rd
+@22
+TOP.cva5_sim.cpu.renamer_block.decode.rd_addr[4:0]
+TOP.cva5_sim.cpu.renamer_block.decode.phys_rd_addr[5:0]
+@28
+TOP.cva5_sim.cpu.renamer_block.free_list_fifo.inflight_count[5:0]
+@200
+-
+-Decode
+@22
+TOP.cva5_sim.cpu.decode_and_issue_block.decode.instruction[31:0]
+TOP.cva5_sim.cpu.decode_and_issue_block.decode.pc[31:0]
+@28
+TOP.cva5_sim.cpu.decode_and_issue_block.decode.valid
+TOP.cva5_sim.cpu.renamer_block.rename_valid
+TOP.cva5_sim.cpu.decode_and_issue_block.decode_advance
+TOP.cva5_sim.cpu.decode_and_issue_block.operands_ready
+@22
+TOP.cva5_sim.cpu.decode_and_issue_block.unit_ready[6:0]
+@200
+-
+-Issue
+@22
+TOP.cva5_sim.cpu.decode_and_issue_block.issue.pc[31:0]
+@28
+TOP.cva5_sim.cpu.decode_and_issue_block.issue.uses_rd
+TOP.cva5_sim.cpu.decode_and_issue_block.issue.stage_valid
+TOP.cva5_sim.cpu.decode_and_issue_block.is_load_r
+TOP.cva5_sim.cpu.decode_and_issue_block.instruction_issued
+@200
+-
+-Load Store Unit
+@28
+TOP.cva5_sim.cpu.load_store_unit_block.issue.ready
+TOP.cva5_sim.cpu.load_store_unit_block.issue.new_request
+@22
+TOP.cva5_sim.cpu.load_store_unit_block.virtual_address[31:0]
+@28
+TOP.cva5_sim.cpu.load_store_unit_block.unaligned_addr
+TOP.cva5_sim.cpu.load_store_unit_block.gc.sq_flush
+TOP.cva5_sim.cpu.load_store_unit_block.ls_inputs.load
+TOP.cva5_sim.cpu.load_store_unit_block.ls_inputs.store
+TOP.cva5_sim.cpu.load_store_unit_block.ls_inputs.forwarded_store
+TOP.cva5_sim.cpu.load_store_unit_block.sub_unit_issue
+@200
+-
+@28
+TOP.cva5_sim.cpu.load_store_unit_block.attributes_fifo.fifo.push
+TOP.cva5_sim.cpu.load_store_unit_block.mem_attr.byte_addr[1:0]
+TOP.cva5_sim.cpu.load_store_unit_block.mem_attr.final_mux_sel[1:0]
+TOP.cva5_sim.cpu.load_store_unit_block.mem_attr.id[2:0]
+TOP.cva5_sim.cpu.load_store_unit_block.mem_attr.is_halfword
+TOP.cva5_sim.cpu.load_store_unit_block.mem_attr.is_signed
+TOP.cva5_sim.cpu.load_store_unit_block.mem_attr.subunit_id[0]
+@29
+TOP.cva5_sim.cpu.load_store_unit_block.attributes_fifo.gen_width_3_plus.write_index[1:0]
+@28
+TOP.cva5_sim.cpu.load_store_unit_block.attributes_fifo.fifo.pop
+TOP.cva5_sim.cpu.load_store_unit_block.wb_attr.byte_addr[1:0]
+TOP.cva5_sim.cpu.load_store_unit_block.wb_attr.final_mux_sel[1:0]
+TOP.cva5_sim.cpu.load_store_unit_block.wb_attr.id[2:0]
+TOP.cva5_sim.cpu.load_store_unit_block.wb_attr.is_halfword
+TOP.cva5_sim.cpu.load_store_unit_block.wb_attr.is_signed
+TOP.cva5_sim.cpu.load_store_unit_block.wb_attr.subunit_id[0]
+TOP.cva5_sim.cpu.load_store_unit_block.attributes_fifo.gen_width_3_plus.read_index[1:0]
+TOP.cva5_sim.cpu.load_store_unit_block.attributes_fifo.fifo.valid
+TOP.cva5_sim.cpu.load_store_unit_block.attributes_fifo.gen_width_3_plus.inflight_count[2:0]
+@200
+-
+-
+@28
+TOP.cva5_sim.cpu.load_store_unit_block.gen_ls_dcache.data_cache.l1_response.data_valid
+TOP.cva5_sim.cpu.load_store_unit_block.gen_ls_dcache.data_cache.ls.data_valid
+@200
+-LSQ
+@28
+TOP.cva5_sim.cpu.load_store_unit_block.lsq_block.load_selected
+@22
+TOP.cva5_sim.cpu.load_store_unit_block.lsq_block.lq_data_in.addr[31:0]
+TOP.cva5_sim.cpu.load_store_unit_block.lsq_block.lq_data_out.addr[31:0]
+@200
+-
+-LQ
+@28
+TOP.cva5_sim.cpu.load_store_unit_block.lsq_block.lq.push
+TOP.cva5_sim.cpu.load_store_unit_block.lsq_block.lq.pop
+TOP.cva5_sim.cpu.load_store_unit_block.lsq_block.lq.valid
+@200
+-
+-SQ
+@22
+TOP.cva5_sim.cpu.load_store_unit_block.lsq_block.sq.data_out.addr[31:0]
+@28
+TOP.cva5_sim.clk
+TOP.cva5_sim.cpu.load_store_unit_block.lsq_block.sq.push
+TOP.cva5_sim.cpu.load_store_unit_block.lsq_block.sq.pop
+TOP.cva5_sim.cpu.load_store_unit_block.lsq_block.sq.valid
+TOP.cva5_sim.cpu.load_store_unit_block.lsq_block.sq.full
+@24
+TOP.cva5_sim.cpu.load_store_unit_block.lsq_block.sq_block.sq_index[1:0]
+TOP.cva5_sim.cpu.load_store_unit_block.lsq_block.sq_block.sq_oldest[1:0]
+@28
+TOP.cva5_sim.cpu.load_store_unit_block.lsq_block.sq_block.valid[3:0]
+TOP.cva5_sim.cpu.load_store_unit_block.lsq_block.sq_block.released[3:0]
+@200
+-
+-Writeback
+-
+-Retirer
+@28
+#{TOP.cva5_sim.cpu.id_block.retire_port_valid[0:1]} TOP.cva5_sim.cpu.id_block.retire_port_valid[0] TOP.cva5_sim.cpu.id_block.retire_port_valid[1]
+TOP.cva5_sim.cpu.id_block.gc.exception_pending
+TOP.cva5_sim.cpu.id_block.gc.retire_hold
+TOP.cva5_sim.cpu.id_block.gc.writeback_supress
+TOP.cva5_sim.cpu.retire.valid
+[pattern_trace] 1
+[pattern_trace] 0
