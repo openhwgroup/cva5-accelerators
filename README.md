@@ -54,11 +54,11 @@ The GPIOs are included to provide additional user status indicators.
 
 
 # Working with the Makefile
-A makefile has been provided that will build the embench benchmarks in can run them in both a simulation environment (using Verilator) and on the FPGA board.
+A makefile has been provided that will build the embench benchmarks and can run them, in both a simulation environment (using Verilator) and on the FPGA board.
 
 ## Prerequisites
 ### Building Embench
- - compiler tuple set in: `embench-iot/config/riscv32/boards/cva5/board.cfg` and in the `Makefile`
+ - compiler name set in: `embench-iot/config/riscv32/boards/cva5/board.cfg` and in the `Makefile`
    - (riscv32-unknown-elf by default) 
  - make sure your compiler is part of your path (i.e. `export PATH=<path to the bin folder of your toolchain>:$PATH`)
 
