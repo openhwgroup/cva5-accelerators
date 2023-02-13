@@ -3,7 +3,9 @@ After checking out the repo run:
 ```
 git submodule update --init
 ```
-For initial testing, extract the reference binaries as described below:
+to bring in the CVA5 repo, and the embench benchmarks.
+
+**For initial testing, extract the reference binaries as described below:**
 
 ## Reference Binaries
 Reference binaries are included in: `reference-binaries.tar.xz` in the root directory of the project.  To use them, extract them to:
