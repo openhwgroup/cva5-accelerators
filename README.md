@@ -29,6 +29,11 @@ The remainder of this document contains instructions on
  - Running benchmarks on the board
  - Running benchmarks in simulation (with Verilator)
 
+For an overview of the CVA5 processor and details on adding custom instructions units please see:
+ - [CVA5 overview](docs/cva5-overview.md)
+ - [Custom unit support](docs/custom-unit-support.md)
+
+in the docs folder.
 
 # Generating the Hardware System
 Two tcl scripts are provided to generate the baseline system for the competition, located in: **examples/nexys/scripts**
