@@ -62,7 +62,8 @@ embench_hw_logs = $(addprefix $(EMBENCH_LOG_DIR)/, $(addsuffix .hw_log, $(EMBENC
 
 .PHONY: extract-reference-binaries
 extract-reference-binaries:
-	tar -xf reference-binaries.tar.xz -C embench-iot/build/bin/
+	mkdir -p $(EMBENCH_DIR)/build/bin
+	tar -xf reference-binaries.tar.xz -C $(EMBENCH_DIR)/build/bin/
 
 #embench benchmarks copied into a bin folder to simplify makefile rules
 .PHONY: build-embench
