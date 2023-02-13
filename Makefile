@@ -60,6 +60,10 @@ embench_raw_binaries = $(addprefix $(EMBENCH_DIR)/build/bin/, $(addsuffix .rawbi
 embench_logs = $(addprefix $(EMBENCH_LOG_DIR)/, $(addsuffix .log, $(EMBENCH_BENCHMARKS)))
 embench_hw_logs = $(addprefix $(EMBENCH_LOG_DIR)/, $(addsuffix .hw_log, $(EMBENCH_BENCHMARKS)))
 
+.PHONY: extract-reference-binaries
+extract-reference-binaries:
+	tar -xf reference-binaries.tar.xz -C embench-iot/build/bin/
+
 #embench benchmarks copied into a bin folder to simplify makefile rules
 .PHONY: build-embench
 build-embench :
@@ -77,9 +81,9 @@ build-embench :
 #Run verilator
 $(EMBENCH_LOG_DIR)/%.log : $(EMBENCH_DIR)/build/bin/%.hw_init $(CVA5_SIM)
 	@echo $< > $@
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $@
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $@
 
-run-ALL-verilator: $(embench_logs) $(CVA5_SIM)
+run-ALL-verilator: $(embench_logs)
 	cat $^ > logs/embench.log
 	
 #Run hardware
@@ -93,70 +97,70 @@ run-ALL-hardware: $(embench_hw_logs)
 ################################################
 # Individual Benchmarks (Verilator)
 run-aha-mont64-verilator: $(EMBENCH_DIR)/build/bin/aha-mont64.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/aha-mont64.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/aha-mont64.log
 
 run-crc32-verilator: $(EMBENCH_DIR)/build/bin/crc32.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/crc32.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/crc32.log
 
 run-cubic-verilator: $(EMBENCH_DIR)/build/bin/cubic.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/cubic.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/cubic.log
 
 run-edn-verilator: $(EMBENCH_DIR)/build/bin/edn.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/edn.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/edn.log
 
 run-huffbench-verilator: $(EMBENCH_DIR)/build/bin/huffbench.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/huffbench.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/huffbench.log
 
 run-matmult-int-verilator: $(EMBENCH_DIR)/build/bin/matmult-int.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/matmult-int.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/matmult-int.log
 
 run-md5sum-verilator: $(EMBENCH_DIR)/build/bin/md5sum.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/md5sum.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/md5sum.log
 
 run-minver-verilator: $(EMBENCH_DIR)/build/bin/minver.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/minver.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/minver.log
 
 run-nbody-verilator: $(EMBENCH_DIR)/build/bin/nbody.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/nbody.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/nbody.log
 
 run-nettle-aes-verilator: $(EMBENCH_DIR)/build/bin/nettle-aes.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/nettle-aes.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/nettle-aes.log
 
 run-nettle-sha256-verilator: $(EMBENCH_DIR)/build/bin/nettle-sha256.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/nettle-sha256.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/nettle-sha256.log
 
 run-nsichneu-verilator: $(EMBENCH_DIR)/build/bin/nsichneu.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/nsichneu.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/nsichneu.log
 
 run-picojpeg-verilator: $(EMBENCH_DIR)/build/bin/picojpeg.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/picojpeg.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/picojpeg.log
 
 run-primecount-verilator: $(EMBENCH_DIR)/build/bin/primecount.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/primecount.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/primecount.log
 
 run-qrduino-verilator: $(EMBENCH_DIR)/build/bin/qrduino.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/qrduino.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/qrduino.log
 
 run-sglib-combined-verilator: $(EMBENCH_DIR)/build/bin/sglib-combined.hw_init
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/sglib-combined.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/sglib-combined.log
 
 run-slre-verilator: $(EMBENCH_DIR)/build/bin/slre.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/slre.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/slre.log
 
 run-st-verilator: $(EMBENCH_DIR)/build/bin/st.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/st.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/st.log
 
 run-statemate-verilator: $(EMBENCH_DIR)/build/bin/statemate.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/statemate.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/statemate.log
 
 run-tarfind-verilator: $(EMBENCH_DIR)/build/bin/tarfind.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/tarfind.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/tarfind.log
 
 run-ud-verilator: $(EMBENCH_DIR)/build/bin/ud.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/ud.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/ud.log
 
 run-wikisort-verilator: $(EMBENCH_DIR)/build/bin/wikisort.hw_init $(CVA5_SIM)
-	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) >> $(EMBENCH_LOG_DIR)/wikisort.log
+	$(CVA5_SIM) "/dev/null" "/dev/null" $< $(VERILATOR_TRACE_FILE) > $(EMBENCH_LOG_DIR)/wikisort.log
 
 
 

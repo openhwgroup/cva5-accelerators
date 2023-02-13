@@ -2,14 +2,12 @@
 After checking out the repo run:
 ```
 git submodule update --init
+make extract-reference-binaries
 ```
-to bring in the CVA5 repo, and the embench benchmarks.
-
-**For initial testing, extract the reference binaries as described below:**
+to bring in the CVA5 repo, the embench benchmarks, and setup the reference-binaries
 
 ## Reference Binaries
-Reference binaries are included in: `reference-binaries.tar.xz` in the root directory of the project.  To use them, extract them to:
- - embench-iot/build/bin
+Reference binaries are included in: `reference-binaries.tar.xz` in the root directory of the project.  To use them at any point for comparison purposes, run: `make extract-reference-binaries`
 
 ## Required Tools
 The following is a list of tools used for the baseline system configuration:
@@ -73,6 +71,7 @@ A makefile has been provided that will build the embench benchmarks in can run t
  - verilator included in path
 
 ## Makefile Targets
+- **extract-reference-binaries** Extracts and copies reference binaries to the build directory
 - **build-embench** Builds the embench benchmarks.
 - **run-ALL-verilator** Runs the embench benchmarks in the verilator simulation environment. Logs to: logs/ for the summary and to: logs/embench for individual benchmarks.
 - **run-ALL-hardware** Runs the embench benchmarks on the board.  Open the UART terminal (9600 8N1) first before running to capture the output.
