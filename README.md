@@ -36,11 +36,11 @@ For an overview of the CVA5 processor and details on adding custom instructions 
 in the docs folder.
 
 # Generating the Hardware System
-Two tcl scripts are provided to generate the baseline system for the competition, located in: **examples/nexys/scripts**
+Two tcl scripts are provided to generate the baseline system for the competition, located in: **cva5/examples/nexys/scripts**
 
 The **cva5-ip-core-base.tcl** script packages the processor for Vivado's IP integrator, and the **system.tcl** script builds the system configuration for the nexys A7 board.
 
- 1. Open Vivado and, from the tcl prompt at the bottom of the screen, navigate to the **examples/nexys/scripts** folder.
+ 1. Open Vivado and, from the tcl prompt at the bottom of the screen, navigate to the **cva5/examples/nexys/scripts** folder.
  2. Run: `source cva5-ip-core-base.tcl`
  3. Close the project
  3. Then run: `source system.tcl` which will create the cva5-competition-baseline project
