@@ -40,11 +40,18 @@ Two tcl scripts are provided to generate the baseline system for the competition
 
 The **cva5-ip-core-base.tcl** script packages the processor for Vivado's IP integrator, and the **system.tcl** script builds the system configuration for the nexys A7 board.
 
+## Presetup
+- If you have not already installed the board support for the Nexys 7 board, do so by opening Vivado and going to the menu: "Tools > Vivado Store..."
+- You may need to hit the "Refresh" button (lower left of window) to see the full board list.  Right click the **Nexys A7-100T** board and select install.
+
+ ![Nexys 7 board install](docs/board-install.png)
+
+## System Generation
  1. Open Vivado and, from the tcl prompt at the bottom of the screen, navigate to the **cva5/examples/nexys/scripts** folder.
  2. Run: `source cva5-ip-core-base.tcl`
- 3. Close the project
- 3. Then run: `source system.tcl` which will create the cva5-competition-baseline project
- 4. Generate the bitstream
+ 3. Close the project (menu: **File > Close Project**)
+ 4. Then run: `source system.tcl` which will create the cva5-competition-baseline project
+ 5. Generate the bitstream
 
 ## System Details
  - 100 MHz 
