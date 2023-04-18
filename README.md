@@ -51,7 +51,10 @@ The **cva5-ip-core-base.tcl** script packages the processor for Vivado's IP inte
  2. Run: `source cva5-ip-core-base.tcl`
  3. Close the project (menu: **File > Close Project**)
  4. Then run: `source system.tcl` which will create the cva5-competition-baseline project
- 5. Generate the bitstream
+ 5. To generate the bitstream launch the **Generate Bitstream** action which will run synthesis and implementation first.
+    - Vivado can require a significant amount of memory, especially during parallel synthesis.  If you are on a memory constrained system, limit the job launcher prompt to a single thread and make sure no synthesis/implementation views are open in Vivado.  Once the project has been created the bitstream can also be generated from the command line without the Vivado GUI if necessary.
+
+Once the bitstream has been generated you can move on to **Running benchmarks on the board** section of this document.
 
 ## System Details
  - 100 MHz 
@@ -117,9 +120,10 @@ All targets in the makefile are provided as targets in the SDK.
 The makefile target will first program the board and then download the binary to memory.  LED0 (the rightmost LED above the DIP switches) will turn on once the board has been programmed and indicates that the system is held in reset.  Once the LED turns off, the benchmark is running.
 
 - Source the vivado shell environment settings
+- Ensure the USB cable is connected to PROG/UART on the board and the board is powered on
 - Open a 9600 8N1 UART terminal
    -  (note: you can run `ls /dev` before and after plugging in the USB cable to determine the UART port. Most likely: ttyUSB<#>)
-- Ensure USB cable is connected to PROG/UART on the board and the board is powered on
+   - eg. `minicom -D /dev/ttyUSB1 -b 9600`
 - a) `run-ALL-hardware` (to run all benchmarks)
 - b) `run-<embench benchmark name>-hardware` to run a single benchmark
     
