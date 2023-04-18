@@ -1,8 +1,0 @@
-[submodule "cva5"]
-	path = cva5
-	url = https://github.com/openhwgroup/cva5.git
-	branch = accelerators-2023
-[submodule "embench-iot"]
-	path = embench-iot
-	url = https://github.com/e-matthews/embench-iot.git
-	branch = accelerators-2023
