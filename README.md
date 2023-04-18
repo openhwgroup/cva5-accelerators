@@ -1,10 +1,9 @@
 # Setting up the Repo
 After checking out the repo run:
 ```
-git submodule update --init
 make extract-reference-binaries
 ```
-to bring in the CVA5 repo, the embench benchmarks, and setup the reference-binaries
+to setup the reference-binaries.
 
 ## Reference Binaries
 Reference binaries are included in: `reference-binaries.tar.xz` in the root directory of the project.  To use them at any point for comparison purposes, run: `make extract-reference-binaries`
