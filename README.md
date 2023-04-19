@@ -1,3 +1,6 @@
+# Overview
+This repo hosts the materials for the **OpenHW University Challenge: Exploring CORE-V CVA5 Tightly-Coupled Accelerators for Embedded IoT Applications**.  The focus of this competition is to explore the potential for accelerating applications through CVA5's support for custom execution units.  The teams will compete on creating custom execution units for CVA5, and their efforts will be evaluated based on both their runtime performance and the resource efficiency of their designs across the Embench benchmark suite.
+
 # Setting up the Repo
 After checking out the repo run:
 ```
