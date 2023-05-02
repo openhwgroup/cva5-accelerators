@@ -1,23 +1,37 @@
 # Adding a Custom Unit
-All logic needed to add a your first custom unit is contained within:
- - cva5/core/custom_unit.sv
+For your fist custom unit you can use:
+ - cva5/core/execution_units/custom_unit.sv
 
-This includes decode, issue, and writeback support.  Additionally, the unit is already connected, and can be enabled by setting the bit:
+Within CVA5, execution units include their own decode support along with issue and write-back interfaces.  Other than the execution unit, the only other files that need to be modified are:
+ - cva5/cva5.sv (to connect the unit), and
+ - cva5/types_and_interfaces/cva5_config.sv (to provide the configuration parameters)
+
+ For `custom_unit.sv`, these additional connections have already been made and you only need to enable the unit in the top-level config struct:
 ```
-INCLUDE_CUSTOM : 1
+         INCLUDE_UNIT : '{
+            ALU : 1,
+            LS : 1,
+            MUL : 1,
+            DIV : 1,
+            CSR : 1,
+            CUSTOM : <-- set to one
+            BR : 1,
+            IEC : 1
+        },
 ```
-in the top-level config struct.  For this competition, the config structs are in `nexys_sim.sv` and `nexys_wrapper.sv` for simulation and hardware respectively.
+ For this competition, the config structs are in:
+ - cva5/examples/nexys/nexys_config.sv
 
 ## custom_unit.sv
-The example unit within custom_unit.sv is complete, minimal example of how a custom unit can be implemented.  It has the following properties:
+The example unit within custom_unit.sv is a complete, minimal, example of how a custom unit can be implemented.  It has the following properties:
  - It matches one instruction pattern at decode
-   - it uses rs1, rs2, and r2
+   - it uses rs1, rs2, and rd
  - It has a latency of 2 cycles
  - It has a throughput of 1 instruction every-other cycle
  - It performs an add of rs1 and rs2 and writes the result to the register-file
 
 ## Decode support
-The following snippet from `custom_unit.sv`, highlights how decode support is provided within CVA5.  Decode support is distributed among the execution units with each unit being responsible for determining if it is needed.  Additionally, each unit provides whether that instruction needs any register sources or whether it writes to the register-file.
+The following snippet from `custom_unit.sv`, highlights how decode support is provided within CVA5.  Decode support is distributed among the execution units with each unit being responsible for determining if it is needed.  Additionally, each unit provides whether that instruction needs any register sources (uses_rs) or whether it writes to the register-file (uses_rd).
 ```
     ////////////////////////////////////////////////////
     //Decode
@@ -44,7 +58,7 @@ The diagram below illustrates the issue and writeback interfaces for execution u
 ![unit-interface](unit-interface.webp)
 
 Simple handshaking is used for both interfaces to control the flow of instructions.  The signal dependencies are as follows:
- - `ready` before  `new_request`
+ - `ready` before `new_request`
  - `done` before `ack`
 
 with the `new_request` and `ack` signals being driven by combinational logic.  It is permissable for the `ready` signal to depend on `ack` (see the multipler unit as an example of this).
@@ -65,7 +79,7 @@ When an instruction's result has been computed, the unit should assert the `done
 ## Signal list
 ### Issue
  - `ready` 1 when a unit can accept the instruction in the issue stage on this cycle, 0 otherwise.  Can include a combinational path including the `ack` signal from writeback.
- - `possible_request` **(Optional, exists for routing optimization)** indicates that a request exists in the issue stage that uses this unit, but may not be issued due to operand dependencies or a branch flush.  As this signal is determined earlier in a cycle it is useful for enables on memory data-paths to reduce fanout on the `new_request` signal.
+ - `possible_request` **(Optional, exists for routing optimization)** indicates that a request exists in the issue stage that uses this unit, but may not be issued due to operand dependencies or a branch flush.  As this signal is determined earlier in a cycle it is useful for enables on memory data-paths.
   - `ID` The instruction's global ID.  This value must be propagated with the instruction within the execution unit and be set alongside the result at the writeback interface.
 
 ### Non-interface Issue signals
@@ -81,7 +95,7 @@ When an instruction's result has been computed, the unit should assert the `done
 
 # Design considerations
 To aid you in the design of your custom unit(s) here are a few considerations:
- - Use as little logic as possible to determine your `ready` and `done` signals.  Ideally, register them if it doesn't impact your throughput.  As these signals are part of the global control logic, their impact on clock frequency can be large if too complex.  In general, one or two levels of LUTs is acceptable.
+ - Use as little logic as possible to determine your `ready` and `done` signals.  Ideally, constant if possible.  Otherwise, register them if it doesn't impact your throughput, and finally as little logic as possible.  As these signals are part of the global control logic, their impact on clock frequency can be large if too complex.  In general, one or two levels of LUTs is acceptable.
  - The processor can only have at most MAX_IDS instructions post-issue at any given time.  As such, if you can provide buffering for that amount of instructions, you can tie the `ready` signal to 1 (i.e. have an input FIFO of depth MAX_IDS).
  - In the issue stage, the register-file data path originates from registers and passes through 1 level of LUTs before arriving at the execution units.  As such, you can easily fit 5-6 additional stages of LUTs or an adder before you register the data inside your unit.
  - The writeback path consists of a priority encoder for the done signals that then muxes the data paths.  A LUTRAM lookup is performed with the muxed ID to obtain the register-file address and the path ends at the register-file (LUTRAM write).  This is why it's important that the `done` signals are available as early as possible in the writeback stage.  However, this means that there is some flexibility in including logic in the data path for the writeback stage.  A few levels of LUTs or an adder should again be fine.
@@ -113,44 +127,45 @@ Given that supporting more than one instruction retiring per-cycle can be compli
 
 
 # Adding additional custom units
-To add additional custom units, two files must be modified:
- - cva5_config.sv
- - cva5.sv
-In the config file, you will need to increase the `unit_id_param_t` size, and, optionally, provide config options for your unit.
+As mentioned previously, to add additional custom units, two files must be modified:
+ - cva5/cva5.sv (to connect the unit), and
+ - cva5/types_and_interfaces/cva5_config.sv (to provide the configuration parameters)
 
-In `cva5.sv,` you must instantiate your unit, select which writeback port it will connect to and update the following unit ID logic:
+In the config file, you will need to modify the pair of `units_t` struct and the `unit_id_enum_t` enum.  These two data types represent a bit vector of the units and their index within the bit vector, respectively.
+
+## Enabling the unit
+In the `nexys_config.sv`, simply set its bit to one in the `INCLUDE_UNIT` cpu config struct:
+
 ```
-    ////////////////////////////////////////////////////
-    //Unit ID Assignment
-    //Generate Issue IDs based on configuration options
-    //Then assigned to a struct for ease in passing to sub modules
+        INCLUDE_UNIT : '{
+            ALU : 1,
+            LS : 1,
+            MUL : 1,
+            DIV : 1,
+            CSR : 1,
+            CUSTOM : 0,
+            ADDITIONAL_CUSTOM_UNIT : 1,  <-- new unit
+            BR : 1,
+            IEC : 1
+        },
+```
+and assign a writeback port.
 
-    //Units with writeback
-    localparam int unsigned ALU_UNIT_ID = 32'd0;
-    localparam int unsigned LS_UNIT_ID = 32'd1;
-    localparam int unsigned CSR_UNIT_ID = LS_UNIT_ID + int'(CONFIG.INCLUDE_CSRS);
-    localparam int unsigned MUL_UNIT_ID = CSR_UNIT_ID + int'(CONFIG.INCLUDE_MUL);
-    localparam int unsigned DIV_UNIT_ID = MUL_UNIT_ID + int'(CONFIG.INCLUDE_DIV);
-    localparam int unsigned CUSTOM_UNIT_ID = DIV_UNIT_ID + int'(CONFIG.INCLUDE_CUSTOM);
-    //Non-writeback units
-    localparam int unsigned BRANCH_UNIT_ID = CUSTOM_UNIT_ID + 1;
-    localparam int unsigned IEC_UNIT_ID = BRANCH_UNIT_ID + 1;
+### Writeback Port selection
+By default there are three writeback ports for the Nexys config.  Ports 0 and 1 should be left as is (for the ALU and LS units).  Additional units should be added to port 2, or additional write-back ports can be added as shown below (ADDITIONAL_CUSTOM_UNIT_ID and EVEN_MORE_CUSTOM_UNITS_ID).
 
-    //Total number of units
-    localparam int unsigned NUM_UNITS = IEC_UNIT_ID + 1; 
-
-    localparam unit_id_param_t UNIT_IDS = '{
-        ALU : ALU_UNIT_ID,
-        LS : LS_UNIT_ID,
-        CSR : CSR_UNIT_ID,
-        MUL : MUL_UNIT_ID,
-        DIV : DIV_UNIT_ID,
-        CUSTOM : CUSTOM_UNIT_ID,
-        BR : BRANCH_UNIT_ID,
-        IEC : IEC_UNIT_ID
+```
+    localparam wb_group_config_t NEXYS_WB_GROUP_CONFIG = '{
+        0 : '{0: ALU_ID, default : NON_WRITEBACK_ID},
+        1 : '{0: LS_ID, default : NON_WRITEBACK_ID},
+        2 : '{0: MUL_ID, 1: DIV_ID, 2: CSR_ID, 3: CUSTOM_ID, 4: ADDITIONAL_CUSTOM_UNIT_ID, default : NON_WRITEBACK_ID},
+        3 : '{0: EVEN_MORE_CUSTOM_UNITS_ID, default : NON_WRITEBACK_ID},
+        default : '{default : NON_WRITEBACK_ID}
     };
 ```
-All units that write to the register file should be added before those that do not (such as the branch and Interrupt and Exception Control).
+Determining how many units to place on a writeback port is mostly a timing consideration.  If the write-back data-path has become the critical path in the design then some units should be split off onto another write-back port.  Another possible case is if you expect instruction sequences such that two units on the same port will frequently complete on the same cycle.  In that case, throughput can sometimes be improved by placing them on separate writeback ports.
+
+Note: If a unit is included in the writeback config, but not enabled in the `INCLUDED_UNITS` config it will be trimmed during synthesis.  However, if it is not the last unit on a write-back port (ex. the DIV unit), then you may end up with sub-optimal muxing.
 
 # Adding additional register-file read-ports
 By default, two register source ports are provided.  To increase the number of read ports, the following code will need to be modified:
